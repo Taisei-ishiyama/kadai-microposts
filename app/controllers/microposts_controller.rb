@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :require_user_logged_in
+  before_action :correct_user, only: [:destroy]
   
   def create
     @micropost = current_user.microposts.build(micropost_params)
@@ -28,7 +29,7 @@ class MicropostsController < ApplicationController
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
     unless @micropost
-      redirect_to root_ur
+      redirect_to root_url
     end
   end
 end
